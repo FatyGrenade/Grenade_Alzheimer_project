@@ -40,3 +40,30 @@ Ten pomegranate-related compounds were checked against PubChem compound identifi
 ## Scientific limitations
 
 The predictions do not establish experimental AChE inhibition, bioavailability, clinical efficacy, or Alzheimer's disease treatment potential. Several investigated compounds have low structural similarity to the training data. Prediction dispersion across Random Forest trees is not a calibrated confidence interval. Additional scaffold-based evaluation and experimental validation are recommended.
+## Additional Validation — Bemis-Murcko Scaffold Split
+
+To evaluate generalization to unseen molecular scaffolds,
+we performed an additional scaffold-based validation.
+
+Dataset:
+- 4,859 molecules
+- 2,103 distinct scaffold groups
+- 3,901 training molecules
+- 958 testing molecules
+- 0 overlapping scaffold groups
+
+### Results
+
+| Model | MAE | R² |
+|---|---:|---:|
+| Random Forest | 0.5935 | 0.6777 |
+| XGBoost | 0.7013 | 0.5924 |
+
+Random Forest remained the best-performing model.
+
+The reduction in performance compared with the initial
+split highlights the difficulty of generalizing to
+unseen molecular scaffolds.
+
+These results are based on one scaffold split and do
+not establish experimental activity or clinical efficacy.
