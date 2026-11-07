@@ -1,3 +1,12 @@
+streamlit
+pandas
+numpy
+rdkit
+Pillow
+scikit-learn
+joblib
+xgboost
+matplotlib
 rdkit
 scikit-learn
 xgboost
