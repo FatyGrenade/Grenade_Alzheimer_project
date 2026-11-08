@@ -36,7 +36,7 @@ from rdkit.Chem import (
 
 st.set_page_config(
     page_title="POMENOVA | Nature Meets Intelligence",
-    page_icon="🍎",
+    page_icon="assets/pomenova_logo.png",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -1140,6 +1140,257 @@ def model_comparison():
                 metrics.set_index("Model")[["R2"]]
             )
 
+# ============================================================
+# POMENOVA — FROM PREDICTION TO LABORATORY
+# ============================================================
+
+def laboratory_roadmap():
+    import streamlit as st
+
+    st.title("🧫 From Prediction to Laboratory")
+
+    st.markdown(
+        """
+        ### Turning AI predictions into testable scientific questions
+
+        POMENOVA helps prioritize natural compounds for future
+        investigation of acetylcholinesterase (AChE) inhibition.
+
+        Select a molecule to explore the scientific steps needed
+        to investigate its predicted activity experimentally.
+        """
+    )
+
+    compounds = [
+        "Quercetin",
+        "Rutin",
+        "Punicalagin",
+        "Punicalin",
+        "Corilagin",
+        "Pedunculagin",
+        "Ellagic acid",
+        "Gallic acid",
+        "Catechin",
+        "Epicatechin",
+    ]
+
+    selected = st.selectbox(
+        "🔬 Select your molecule",
+        compounds,
+        key="lab_selected_compound"
+    )
+
+    st.divider()
+
+    st.subheader(f"🧬 Molecular Research Passport: {selected}")
+
+    # Verified example from the existing POMENOVA results.
+    # Other predictions must be read from the actual model outputs.
+    predictions = {
+        "Quercetin": {
+            "pic50": 6.886,
+            "similarity": 0.718,
+        },
+        "Rutin": {
+            "pic50": 6.188,
+            "similarity": 0.333,
+        },
+    }
+
+    prediction = predictions.get(selected)
+
+    if prediction:
+        pic50 = prediction["pic50"]
+        ic50_nm = 10 ** (9 - pic50)
+
+        col1, col2, col3 = st.columns(3)
+
+        with col1:
+            st.metric("Predicted pIC50", f"{pic50:.3f}")
+
+        with col2:
+            st.metric("Estimated IC50", f"{ic50_nm:.0f} nM")
+
+        with col3:
+            st.metric(
+                "Maximum Tanimoto similarity",
+                f"{prediction['similarity']:.3f}"
+            )
+
+        st.caption(
+            "Model-generated estimates, not experimentally "
+            "measured activity or calibrated confidence."
+        )
+    else:
+        st.info(
+            "This compound is available for roadmap planning. "
+            "Its numerical prediction should be loaded from "
+            "the existing POMENOVA prediction results."
+        )
+
+    st.divider()
+
+    st.header("🧪 Proposed Experimental Validation Roadmap")
+
+    st.markdown(
+        "Follow the steps below to understand how a "
+        "computational hypothesis could be investigated."
+    )
+
+    steps = [
+        {
+            "title": "01 — AI Prediction",
+            "status": "Computational stage completed",
+            "description": (
+                "Use molecular fingerprints and a trained "
+                "machine-learning model to estimate potential "
+                "AChE inhibitory activity."
+            ),
+            "goal": (
+                "Generate a research hypothesis and identify "
+                "candidate molecules for further investigation."
+            ),
+        },
+        {
+            "title": "02 — In-vitro AChE Inhibition Assay",
+            "status": "Proposed experiment",
+            "description": (
+                "Measure the compound's inhibitory activity "
+                "against acetylcholinesterase using an "
+                "appropriate validated biochemical assay."
+            ),
+            "goal": (
+                "Obtain an experimentally measured IC50 "
+                "and compare it with the AI prediction."
+            ),
+        },
+        {
+            "title": "03 — Cytotoxicity Assessment",
+            "status": "Proposed experiment",
+            "description": (
+                "Evaluate potential toxicity using suitable "
+                "biological models and relevant concentrations."
+            ),
+            "goal": (
+                "Determine whether observed biological effects "
+                "occur within a potentially acceptable "
+                "safety range."
+            ),
+        },
+        {
+            "title": "04 — Blood-Brain Barrier Assessment",
+            "status": "Proposed research",
+            "description": (
+                "Investigate permeability, transport, "
+                "metabolism and possible exposure of the "
+                "central nervous system."
+            ),
+            "goal": (
+                "Assess whether the compound or relevant "
+                "metabolites could reach the biological "
+                "site of interest."
+            ),
+        },
+        {
+            "title": "05 — Further Preclinical Validation",
+            "status": "Future research",
+            "description": (
+                "If earlier results justify progression, "
+                "investigate additional pharmacological "
+                "properties, mechanisms and biological effects."
+            ),
+            "goal": (
+                "Evaluate whether the candidate merits "
+                "more advanced research."
+            ),
+        },
+    ]
+
+    for step in steps:
+        with st.expander(step["title"], expanded=True):
+            st.markdown(f"**Status:** {step['status']}")
+            st.write(step["description"])
+            st.markdown(f"**Scientific objective:** {step['goal']}")
+
+    st.divider()
+
+    st.header("📋 Generate a Research Plan")
+
+    st.write(
+        "Create a downloadable research roadmap "
+        "for the selected candidate."
+    )
+
+    report_lines = [
+        "POMENOVA — FROM PREDICTION TO LABORATORY",
+        "=" * 48,
+        f"Selected compound: {selected}",
+        "",
+        "Scientific objective:",
+        "Investigate potential acetylcholinesterase inhibition.",
+        "",
+    ]
+
+    if prediction:
+        report_lines.extend([
+            f"Predicted pIC50: {pic50:.3f}",
+            f"Estimated IC50: {ic50_nm:.0f} nM",
+            (
+                "Maximum Tanimoto similarity: "
+                f"{prediction['similarity']:.3f}"
+            ),
+            "",
+        ])
+    else:
+        report_lines.extend([
+            "Numerical prediction: Not loaded",
+            "",
+        ])
+
+    report_lines.append("PROPOSED VALIDATION STEPS")
+    report_lines.append("")
+
+    for step in steps:
+        report_lines.extend([
+            step["title"],
+            f"Status: {step['status']}",
+            step["description"],
+            f"Objective: {step['goal']}",
+            "",
+        ])
+
+    report_lines.extend([
+        "IMPORTANT SCIENTIFIC LIMITATION",
+        (
+            "This roadmap is a proposed research plan. "
+            "POMENOVA has not performed laboratory "
+            "validation of these candidate predictions."
+        ),
+        (
+            "Predicted inhibitory activity does not establish "
+            "safety, brain exposure or therapeutic efficacy."
+        ),
+    ])
+
+    report_text = "\n".join(report_lines)
+
+    st.download_button(
+        label="📥 Download Research Roadmap",
+        data=report_text,
+        file_name=(
+            f"POMENOVA_{selected.replace(' ', '_')}"
+            "_Research_Roadmap.txt"
+        ),
+        mime="text/plain",
+        key="download_lab_roadmap",
+    )
+
+    st.warning(
+        "Scientific limitation: This is an illustrative "
+        "validation pathway. No laboratory experiments "
+        "have been completed as part of this feature. "
+        "Predictions are not evidence of treatment efficacy."
+    )
 
 # ============================================================
 # 8. SIDEBAR NAVIGATION
@@ -1173,6 +1424,7 @@ with st.sidebar:
         "📚 07  Scientific Evidence",
         "🧪 08  Research Workflow",
         "🌱 09  Impact & Next Steps",
+        "🧫 10 From Prediction to Laboratory",
     ]
 
     page = st.radio(
@@ -1197,6 +1449,7 @@ with st.sidebar:
         """,
         unsafe_allow_html=True,
     )
+
 
 
 # ============================================================
@@ -2154,9 +2407,6 @@ elif page == pages[6]:
     )
 
 
-# ============================================================
-# PAGE 8 — RESEARCH WORKFLOW
-# ============================================================
 
 elif page == pages[7]:
     banner()
@@ -2258,9 +2508,6 @@ elif page == pages[7]:
     )
 
 
-# ============================================================
-# PAGE 9 — IMPACT AND NEXT STEPS
-# ============================================================
 
 elif page == pages[8]:
     banner()
@@ -2372,6 +2619,11 @@ elif page == pages[8]:
         "Explore POMENOVA on GitHub",
         GITHUB,
     )
+elif page == "🧫 10 From Prediction to Laboratory":
+    laboratory_roadmap()
+
+
+    
 
 
 # ============================================================
