@@ -97,3 +97,9 @@ POMENOVA does not establish that pomegranate compounds prevent or treat Alzheime
 **POMENOVA — Nature Meets Intelligence**
 
 EthnoHack 2026 | Early-Stage Drug Discovery Research
+## 🎬 POMENOVA — Demo Video
+
+Watch our official EthnoHack 2026 presentation and application demonstration:
+
+[Watch POMENOVA on YouTube](https://youtu.be/VS-VCY0mWig?si=gurn5kF883kK-j6Z)
+
