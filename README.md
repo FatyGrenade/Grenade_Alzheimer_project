@@ -107,7 +107,7 @@ Watch our official EthnoHack 2026 presentation and application demonstration:
 
 Explore our interactive AI-powered drug discovery platform.
 
-[🍎 Launch POMENOVA Application](https://youtu.be/VS-VCY0mWig?si=gurn5kF883kK-j6Z)
+[🍎 Launch POMENOVA Application](https://grenadealzheimerproject-nduuhjkfn94zqwcxvgjheo.streamlit.app/)
 
 Discover natural compounds, explore molecular structures,
 predict AChE inhibitory activity, and review model validation.
